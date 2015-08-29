@@ -1,0 +1,21 @@
+[production]
+a = "a"
+pubsub = [
+  "redisprod1",
+  "redisprod2"
+]
+keepalive = true
+heartbeat = "200ms"
+
+[stage]
+pubsub = [
+  "redisstg"
+]
+keepalive = true
+heartbeat = "1s"
+
+[development]
+pubsub = [
+  "localhost:7788"
+]
+keepalive = false
