@@ -1,17 +1,11 @@
-[production]
-pubsub = [
-  "redisprod1",
-  "redisprod2"
-]
-keepalive = true
-heartbeat = "200ms"
-
 [stage]
 pubsub = [
-  "redisstg"
+  "redisstg1",
+  "redisstg2",
+  "redisstg3"
 ]
 keepalive = true
-heartbeat = "1s"
+heartbeat = "500ms"
 
 [development]
 pubsub = [
@@ -19,3 +13,11 @@ pubsub = [
 ]
 keepalive = false
 heartbeat = "1s"
+
+[production]
+pubsub = [
+  "redisprod1",
+  "redisprod2"
+]
+keepalive = true
+heartbeat = "200ms"

@@ -11,9 +11,9 @@ type configuration struct {
 	Heartbeat *Duration
 }
 
-func TestDecodeProductionEnvironmentFromFile(t *testing.T) {
+func TestLoadProductionEnvironmentFromFile(t *testing.T) {
 	var config configuration
-	err := LoadFromFile("example.toml", "production", &config)
+	err := LoadEnvironmentFromFile("example.toml", "production", &config)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -27,9 +27,9 @@ func TestDecodeProductionEnvironmentFromFile(t *testing.T) {
 	}
 }
 
-func TestDecodeDevelopmentEnvironment(t *testing.T) {
+func TestLoadDevelopmentEnvironment(t *testing.T) {
 	var config configuration
-	err := Load("development", &config)
+	err := LoadEnvironment("development", &config)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -47,17 +47,25 @@ func TestDecodeDevelopmentEnvironment(t *testing.T) {
 	}
 }
 
-func TestDecodeUnexistingFile(t *testing.T) {
+func TestLoadUnexistingFile(t *testing.T) {
 	var config configuration
-	err := LoadFromFile("xxx.toml", "xxx", &config)
+	err := LoadEnvironmentFromFile("xxx.toml", "xxx", &config)
 	if err == nil {
 		t.Fatal()
 	}
 }
 
-func TestDecodeUnexistingEnvironment(t *testing.T) {
+func TestLoadUnexistingEnvironment(t *testing.T) {
 	var config configuration
-	err := Load("xxx", &config)
+	err := LoadEnvironment("xxx", &config)
+	if err == nil {
+		t.Fatal()
+	}
+}
+
+func TestLoadNoEnvironment(t *testing.T) {
+	var config configuration
+	err := LoadEnvironmentFromFile("invalid.toml", "xxx", &config)
 	if err == nil {
 		t.Fatal()
 	}
