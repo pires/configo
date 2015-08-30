@@ -9,12 +9,12 @@ type configuration struct {
 	A         string
 	Pubsub    []string
 	Keepalive bool
-	Heartbeat time.Duration
+	Heartbeat *Duration
 }
 
 func TestDecodeEnvironment(t *testing.T) {
 	var config configuration
-	err := Decode("example.toml", "production", &config)
+	err := LoadFromFile("example.toml", "production", &config)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -27,7 +27,7 @@ func TestDecodeEnvironment(t *testing.T) {
 		t.Fail()
 	}
 
-	if 200 * time.Millisecond != config.Heartbeat {
+	if 200 * time.Millisecond != config.Heartbeat.Duration {
 		t.Fail()
 	}
 }
