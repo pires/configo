@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"fmt"
 )
 
 type Duration struct {
@@ -31,5 +32,17 @@ func LoadFromFile(fpath string, env string, v interface{}) error {
 	if _, err := toml.DecodeFile(fpath, &environments); err != nil {
 		return err
 	}
-	return Unify(v, environments[env])
+
+	value, ok := environments[env]
+	if !ok {
+		return fmt.Errorf("Environment %v doesn't exist in the configuration file.", env)
+	}
+
+	return Unify(v, value)
+}
+
+
+// assumes configuration filepath is `pwd`/config.toml
+func Load(env string, v interface{}) error {
+	return LoadFromFile("application.toml", env, v)
 }
