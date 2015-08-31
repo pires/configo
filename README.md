@@ -13,6 +13,8 @@ github.com/pires/configo
 
 ## Usage
 
+The configuration file. By default should be placed in the working directory and named `application.toml`.
+
 ```toml
 [stage]
 pubsub = [
@@ -33,6 +35,8 @@ keepalive = true
 heartbeat = "200ms"
 timeout = "1m"
 ```
+
+The code:
 
 ```go
 package main
@@ -59,7 +63,7 @@ func main() {
 		panic(err)
 	}
 
-        for _, pubsub := range config.Pubsub {
+	for _, pubsub := range config.Pubsub {
 		println("Connecting to", pubsub)
 	}
 
@@ -110,5 +114,5 @@ Received heartbeat
 Done
 ```
 
-**Attention**: you may have noticed the type `configo.Duration` instead of `time.Duration`. This happens because [a special kind of unmarshalling is needed](https://github.com/BurntSushi/toml#using-the-encodingtextunmarshaler-interface).
+You may have noticed the type `configo.Duration` instead of `time.Duration`. This happens because [a special kind of unmarshalling is needed](https://github.com/BurntSushi/toml#using-the-encodingtextunmarshaler-interface).
 Feel free to implement your own types.
